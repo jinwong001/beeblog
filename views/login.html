@@ -1,35 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>登录</title>
+    <link rel="shortcut icon" href="/static/img/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
 </head>
 <body>
 
 <div class="container" style="width: 500px">
-    <form>
+    <form class="form-horizontal" method="post" action="/login">
         <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+            <label>请输入管理员帐号：</label>
+            <input class="form-control" id="uname" name="uname">
         </div>
         <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputFile">File input</label>
-            <input type="file" id="exampleInputFile">
-            <p class="help-block">Example block-level help text here.</p>
+            <label>请输入管理员密码：</label>
+            <input type="password" class="form-control" id="pwd" name="pwd">
         </div>
         <div class="checkbox">
             <label>
-                <input type="checkbox"> Check me out
+                <input type="checkbox" name="autoLogin"> 自动登录
             </label>
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <a href="/login">
+            <button type="submit" class="btn btn-default" onclick="return checkInput()">登录</button>
+        </a>
+        <button class="btn btn-default" onclick="return backToHome()">返回</button>
     </form>
-
-
 </div>
 </body>
+
+<script type="text/javascript">
+    function backToHome() {
+        window.location.href = "/";
+        return false
+    }
+
+    function checkInput() {
+        var uname = document.getElementById("uname");
+        if (uname.value.length == 0) {
+            alert("请输入管理员账号");
+            return false;
+        }
+        var pwd = document.getElementById("pwd");
+        if (uname.value.length == 0) {
+            alert("请输入管理员密码");
+            return false;
+        }
+
+        return true;
+
+    }
+</script>
+
 </html>
