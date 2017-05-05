@@ -14,7 +14,7 @@ func (c *LoginController) Get() {
 	if isExit {
 		c.Ctx.SetCookie("uname", "", -1, "/")
 		c.Ctx.SetCookie("pwd", "", -1, "/")
-		c.Redirect("/", 302)
+		c.Redirect("/", 301)
 		return
 	}
 	c.TplName = "login.html"
@@ -24,7 +24,6 @@ func (c *LoginController)Post() {
 	uname := c.Input().Get("uname")
 	pwd := c.Input().Get("pwd")
 	autoLogin := c.Input().Get("autoLogin") == "on"
-
 	if beego.AppConfig.String("uname") == uname&&
 		beego.AppConfig.String("pwd") == pwd {
 		maxAge := 0

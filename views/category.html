@@ -4,6 +4,11 @@
     <title>首页 - 我的beego博客</title>
     <link rel="shortcut icon" href="/static/img/favicon.png">
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 70px;
+        }
+    </style>
 </head>
 
 <body>
@@ -13,12 +18,12 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container" style="width: 600px">
     <h1>分类列表</h1>
     <form class="form-horizontal" method="GET" action="/category">
         <div class="form-group">
             <label>分类名称</label>
-            <input class="form-control" id="name" name="uname" placeholder="enter account">
+            <input class="form-control" name="name" placeholder="enter account">
         </div>
         <input type="hidden" name="op" value="add"/>
         <button type="submit" class="btn btn-default" onclick="return checkInput()">添加</button>
