@@ -54,7 +54,7 @@ func RegisterDB() {
 
 func AddCategory(name string) error {
 	o := orm.NewOrm()
-	category := &Category{Title:name}
+	category := &Category{Title:name, Created:time.Now(), TopicTime:time.Now()}
 	qs := o.QueryTable("category")
 	err := qs.Filter("title", name).One(category)
 	if err == nil {

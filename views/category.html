@@ -40,7 +40,7 @@
         }
     </script>
 
-    <table class="table table-responsive">
+    <table class="table">
         <thead>
         <tr>
             <th>#</th>
@@ -51,16 +51,14 @@
         </thead>
         <tbody>
         {{range .Categories}}
-        <th>{{.Id}}</th>
-        <th>{{.Title}}</th>
-        <th>{{.TopicCount}}</th>
-        <th><a href="/category?op=del&id={{.Id}}">删除</a></th>
-        <th>{{.Id}}</th>
+        <tr>
+            <th>{{.Id}}</th>
+            <th>{{.Title}}</th>
+            <th>{{.TopicCount}}</th>
+            <th><a href="/category?op=del&id={{.Id}}">删除</a></th>
+        </tr>
         {{end}}
-
         </tbody>
-
-
     </table>
 </div>
 
