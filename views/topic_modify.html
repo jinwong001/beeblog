@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>修改文章 - 我的beego博客</title>
+    <link rel="shortcut icon" href="/static/img/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 70px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        {{template "navbar" .}}
+    </div>
+</div>
+
+<div class="container" style="width: 600px">
+    <h1>修改文章</h1>
+    <form class="form-horizontal" method="post" action="/topic">
+        <input type="hidden" name="tid" value="{{.Tid}}">
+        <div class="form-group">
+            <label>文章标题</label>
+            <input class="form-control" name="title" value="{{.Topic.Title}}">
+        </div>
+        <div class="form-group">
+            <label>文章内容</label>
+            <textarea class="form-control" name="content" cols="30" rows="10">{{.Topic.Content}}</textarea>
+        </div>
+        <button type="submit" class="btn btn-default" onclick="return checkInput()">修改文章</button>
+    </form>
+</div>
+
+<script>
+    function checkInput() {
+        var uname = document.getElementById("title");
+        if (uname.value.length == 0) {
+            alert("请输入标题");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+<script type="text/javascript" src="http://cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+

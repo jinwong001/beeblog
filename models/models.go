@@ -8,6 +8,7 @@ import (
 	"os"
 	"path"
 	"strconv"
+	"github.com/CardInfoLink/log"
 )
 
 const (
@@ -86,5 +87,69 @@ func DelCategory(id string) error {
 	_, err = o.Delete(category)
 	return err;
 
+}
+
+func GetAllTopics(des bool) ([]*Topic, error) {
+	o := orm.NewOrm()
+	topics := make([]*Topic, 0)
+	qs := o.QueryTable("topic")
+	var err error
+	if des {
+		_, err = qs.OrderBy("-created").All(&topics)
+	} else {
+		_, err = qs.All(&topics)
+	}
+	return topics, err
+}
+
+func AddTopic(title, content string) error {
+	o := orm.NewOrm()
+	topic := &Topic{Title:title, Content:content, Created:time.Now(),
+		Updated:time.Now(), ReplyTime:time.Now() }
+	_, err := o.Insert(topic)
+	return err
+}
+
+func DelTopic(tid string) error {
+	tidNum, err := strconv.ParseInt(tid, 10, 64)
+	if err != nil {
+		return err
+	}
+	o := orm.NewOrm()
+	topic := &Topic{Id:tidNum}
+	_, err = o.Delete(topic)
+	return err;
+}
+
+func GetTopic(tid string) (*Topic, error) {
+	tidNum, err := strconv.ParseInt(tid, 10, 64)
+	log.Debug(tidNum)
+	o := orm.NewOrm()
+	qs := o.QueryTable("topic")
+	topic := new(Topic)
+
+	err = qs.Filter("id", tidNum).One(topic)
+	if err != nil {
+		return nil, err;
+	}
+	topic.Views++
+	_, err = o.Update(topic)
+	return topic, err
+}
+
+func ModifyTopic(tid, title, content string) error {
+	tidNum, err := strconv.ParseInt(tid, 10, 64)
+	if err != nil {
+		return err
+	}
+	o := orm.NewOrm()
+	topic := &Topic{Id:tidNum}
+	if o.Read(topic) == nil {
+		topic.Title = title
+		topic.Content = content
+		topic.Updated = time.Now()
+		o.Update(topic)
+	}
+	return nil
 }
 
